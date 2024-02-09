@@ -1,0 +1,208 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+/* Style the body */
+body {
+  font-family: "Poppins";
+  margin: 0;
+}
+
+/* Header/logo Title */
+header {
+  padding: 0px 25px;
+  background: #fff;
+}
+
+header .contain h1 {
+  margin: 0;
+}
+
+header .contain {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/*nav*/
+nav {
+  display: flex;
+  align-items: center;
+}
+
+nav {
+  margin-left: 10px;
+}
+
+nav button {
+  background: #fff;
+  color: blue;
+  border: 2px solid blueviolet;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-family: "Poppins";
+  cursor: pointer;
+  font-size: 1em;
+  margin-left: 10px;
+}
+
+/* Style the top navigation bar */
+.navbar {
+  display: grid;
+  background-color: #24eb24;
+}
+
+/* Style the navigation bar links */
+.navbar a {
+  color: white;
+  background-color: #964747;
+  padding: 14px 20px;
+  margin: 10px 0;
+  text-decoration: none;
+  text-align: center;
+}
+
+/* Change color on hover */
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Column container */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Create three unequal columns that sits next to each other */
+/* Sidebar/left column */
+.side {
+  flex: 10%;
+  background-color: rgb(153, 104, 199);
+  padding: 20px;
+}
+
+/* Main column */
+.main {
+  flex: 55%;
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+.seccion-details {
+  background: #fff;
+  width: 600px;
+  height: 120px;
+  border-radius: 20px;
+  margin: 20px auto;
+  padding: 15px 15px;
+  position: relative;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.seccion-details h3 {
+  margin: 0;
+  padding: 0 6px;
+  font-size: 1.2em;
+}
+
+.seccion-details p {
+  margin: 0 0 5px 0;
+  padding: 0 6px;
+  font-size: 0.8em;
+  color: #555;
+}
+
+.seccion-details h4 {
+  margin: 0;
+  padding: 0 6px;
+  font-size: 1em;
+  color: #555;
+}
+
+.seccion-details span {
+  left: 40px;
+  padding: 0 6px;
+  color: #333;
+  font-size: 0.8em;
+}
+
+.seccion-details .button1 {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 70px;
+  cursor: pointer;
+  background: #fff;
+  padding: 6px;
+  color: rgb(19, 241, 30);
+  border: 2px solid rgb(19, 241, 30);
+  border-radius: 20px;
+  font-family: "Poppins";
+}
+
+.seccion-details .button2 {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 70px;
+  cursor: pointer;
+  background: #fff;
+  padding: 6px;
+  color: rgb(226, 43, 43);
+  border: 2px solid rgb(226, 43, 43);
+  border-radius: 20px;
+  font-family: "Poppins";
+}
+
+/* Sidebar/right column */
+.side2 {
+  flex: 25%;
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+label,
+input {
+  display: block;
+}
+
+input {
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+form button {
+  background: gold;
+  border: 0;
+  color: #fff;
+  padding: 10px;
+  font-family: "Poppins";
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+}
+
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 700px) {
+  .row,
+  .navbar .footer .contain {
+    flex-direction: column;
+  }
+}
