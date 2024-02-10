@@ -1,6 +1,9 @@
 import { useState } from "react";
+import useAjendacontext from "../hooks/useAjendacontext";
 
 const Sessionform = () => {
+  const { dispatch } = useAjendacontext();
+
   const [date, setDate] = useState("");
   const [title, setTitle] = useState("");
   const [startTime, setStartTime] = useState("");
@@ -32,6 +35,8 @@ const Sessionform = () => {
       setStartTime("");
       setEndTime("");
       setTimeRange("");
+
+      dispatch({ type: "CREATE_AJENDA", payload: data });
 
       console.log("new ajenda added");
     }

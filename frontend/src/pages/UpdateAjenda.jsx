@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import useAjendacontext from "../hooks/useAjendacontext";
 
 const UpdateAjenda = () => {
   const { id } = useParams();
+  const { ajenda, dispatch } = useAjendacontext();
+
   const [date, setDate] = useState("");
   const [title, setTitle] = useState("");
   const [startTime, setStartTime] = useState("");
@@ -10,19 +13,24 @@ const UpdateAjenda = () => {
   const [timeRange, setTimeRange] = useState("");
 
   useEffect(() => {
-    const fetchdata = async () => {
-      const response = await fetch(`http://localhost:4000/api/ajendas/${id}`);
-      const data = await response.json();
-      if (response.ok) {
-        setDate(data.date);
-        setTitle(data.title);
-        setStartTime(data.startTime);
-        setEndTime(data.endTime);
-        setTimeRange(data.timeRange);
-      }
+    const fetchdata = () => {
+      //const response = await fetch(`http://localhost:4000/api/ajendas/${id}`);
+      //const data = await response.json();
+      //if (...ajenda._id == id) {
+      ajenda.map((i) => {
+        if (i._id === id) {
+          setDate(i.date);
+          setTitle(i.title);
+          setStartTime(i.startTime);
+          setEndTime(i.endTime);
+          setTimeRange(i.timeRange);
+        }
+      });
+
+      //}
     };
     fetchdata();
-  }, [id]);
+  }, []);
 
   const handleUpdateAjenda = async (e) => {
     e.preventDefault();
@@ -45,6 +53,8 @@ const UpdateAjenda = () => {
 
     if (response.ok) {
       console.log("ajenda updated");
+      dispatch({ type: "UPDATE_AJENDA", payload: subData });
+      console.log(ajenda);
     }
   };
   return (

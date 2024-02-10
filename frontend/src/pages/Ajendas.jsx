@@ -1,30 +1,32 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Sessionform from "../components/Sessionform";
 import AjendaDetail from "../components/AjendaDetail";
+import useAjendacontext from "../hooks/useAjendacontext";
 
 const Ajendas = () => {
-  const [ajendas, setAjendas] = useState(null);
-
+  //const [ajendas, setAjendas] = useState(null);
+  const { ajenda, dispatch } = useAjendacontext();
   useEffect(() => {
     const fetchajenda = async () => {
       const response = await fetch("http://localhost:4000/api/ajendas");
 
       const data = await response.json();
-      console.log(data);
+      //console.log(data);
       if (response.ok) {
-        setAjendas(data);
+        //setAjendas(data);
+        dispatch({ type: "GET_AJENDAS", payload: data });
       }
     };
     fetchajenda();
-  }, [setAjendas]);
+  }, [dispatch]);
 
   return (
     <div className="page">
       <div className="ajenda">
         <div className="sessions">
-          {ajendas &&
-            ajendas.map((ajenda) => (
-              <AjendaDetail key={ajenda._id} ajenda={ajenda} />
+          {ajenda &&
+            ajenda.map((ajend) => (
+              <AjendaDetail key={ajend._id} ajend={ajend} />
             ))}
         </div>
         <Sessionform />
