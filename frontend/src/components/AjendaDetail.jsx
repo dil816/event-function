@@ -1,13 +1,14 @@
-import { useNavigate } from "react-router-dom";
 import propTypes from "prop-types";
 import useAjendacontext from "../hooks/useAjendacontext";
 
 const AjendaDetail = ({ ajend }) => {
-  const Navigate = useNavigate();
-  const { dispatch } = useAjendacontext();
+  //const Navigate = useNavigate();
+  const { ajenda, dispatch } = useAjendacontext();
 
-  const handleUpdate = () => {
-    Navigate(`/admin/ajenda/UpdateAjenda/${ajend._id}`);
+  const handleUpdate = async () => {
+    //Navigate(`/admin/ajenda/UpdateAjenda/${ajend._id}`);
+    //setAjendas(data);
+    dispatch({ type: "GET_ID", payload: ajenda, payload1: ajend._id });
   };
 
   const handleDelete = async () => {

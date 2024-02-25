@@ -1,14 +1,61 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAjendacontext from "../hooks/useAjendacontext";
 
 const Sessionform = () => {
-  const { dispatch } = useAjendacontext();
+  const { ajenda, _id, dispatch } = useAjendacontext();
 
   const [date, setDate] = useState("");
   const [title, setTitle] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [timeRange, setTimeRange] = useState("");
+  const [isDisable, setIsDisable] = useState(false);
+
+  useEffect(() => {
+    if (_id) {
+      ajenda.map((i) => {
+        if (i._id == _id) {
+          setDate(i.date);
+          setTitle(i.title);
+          setStartTime(i.startTime);
+          setEndTime(i.endTime);
+          setTimeRange(i.timeRange);
+          setIsDisable(true);
+        }
+      });
+    }
+  }, [_id, ajenda]);
+
+  const handleUpdate = async () => {
+    const subData = { title, date, startTime, endTime, timeRange, _id };
+
+    const response = await fetch(`http://localhost:4000/api/ajendas/${_id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(subData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.log(data.error);
+    }
+
+    if (response.ok) {
+      console.log("ajenda updated");
+      console.log(data);
+      console.log(subData);
+
+      setDate("");
+      setTitle("");
+      setStartTime("");
+      setEndTime("");
+      setTimeRange("");
+      setIsDisable(false);
+
+      dispatch({ type: "UPDATE_AJENDA", payload: subData });
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,8 +127,11 @@ const Sessionform = () => {
           onChange={(e) => setTimeRange(e.target.value)}
         />
 
-        <button>Submit</button>
+        <button disabled={isDisable}>Submit</button>
       </form>
+      <button onClick={handleUpdate} disabled={!isDisable}>
+        update
+      </button>
     </div>
   );
 };

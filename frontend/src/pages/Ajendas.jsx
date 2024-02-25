@@ -19,7 +19,7 @@ const Ajendas = () => {
     };
     fetchajenda();
   }, [dispatch]);
-
+console.log(ajenda);
   return (
     <div className="page">
       <div className="ajenda">

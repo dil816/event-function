@@ -6,6 +6,11 @@ export const Ajendacontext = createContext();
 // reducer function hanle all the state changes
 const ajendaReducer = (state, action) => {
   switch (action.type) {
+    case "GET_ID":
+      return {
+        ajenda: action.payload,
+        _id: action.payload1,
+      };
     case "GET_AJENDAS":
       return {
         ajenda: action.payload,
@@ -15,13 +20,14 @@ const ajendaReducer = (state, action) => {
         ajenda: [action.payload, ...state.ajenda],
       };
     case "UPDATE_AJENDA":
-      return state.ajenda.map((aj) => {
-        if (aj._id == action.payload._id) {
-          return { ...aj, ...action.payload };
-        }
-        return aj;
-      });
-
+      return {
+        ajenda: state.ajenda.map((aj) => {
+          if (aj._id == action.payload._id) {
+            return { ...aj, ...action.payload };
+          }
+          return aj;
+        }),
+      };
     case "DELETE_AJENDA":
       return {
         ajenda: state.ajenda.filter((aj) => aj._id !== action.payload._id),
@@ -35,9 +41,10 @@ const ajendaReducer = (state, action) => {
 export const AjendacontextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(ajendaReducer, {
     ajenda: null,
+    _id: null,
   });
   //console.log(state);
-  console.log({...state});
+  //console.log({ ...state });
   // in this return value passed the children as consumer of provider
   // all the children components can access the data of context
   return (
