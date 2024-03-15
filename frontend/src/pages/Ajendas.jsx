@@ -19,10 +19,10 @@ const Ajendas = () => {
     };
     fetchajenda();
   }, [dispatch]);
-console.log(ajenda);
+  console.log(ajenda);
   return (
-    <div className="page">
-      <div className="ajenda">
+    <div className="max-w-[1400px] p-[20px] mx-[auto] my-[0]">
+      <div className="grid grid-cols-[3fr_1fr] gap-[100px]">
         <div className="sessions">
           {ajenda &&
             ajenda.map((ajend) => (

@@ -92,44 +92,58 @@ const Sessionform = () => {
   return (
     <div className="agenda-form">
       <form className="create" onSubmit={handleSubmit}>
-        <label>Date :</label>
+        <label className="block">Date :</label>
         <input
+          className="block p-[10px] mt-[10px] mb-[20px] w-full border-[1px] border-[solid] border-[#ddd] rounded-[4px] box-border"
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
         />
 
-        <label>From :</label>
+        <label className="block">From :</label>
         <input
+          className="block p-[10px] mt-[10px] mb-[20px] w-full border-[1px] border-[solid] border-[#ddd] rounded-[4px] box-border"
           type="time"
           value={startTime}
           onChange={(e) => setStartTime(e.target.value)}
         />
 
-        <label>To :</label>
+        <label className="block">To :</label>
         <input
+          className="block p-[10px] mt-[10px] mb-[20px] w-full border-[1px] border-[solid] border-[#ddd] rounded-[4px] box-border"
           type="time"
           value={endTime}
           onChange={(e) => setEndTime(e.target.value)}
         />
 
-        <label>Agenda :</label>
+        <label className="block">Agenda :</label>
         <input
+          className="block p-[10px] mt-[10px] mb-[20px] w-full border-[1px] border-[solid] border-[#ddd] rounded-[4px] box-border"
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
 
-        <label>Time Range</label>
+        <label className="block">Time Range</label>
         <input
+          className="block p-[10px] mt-[10px] mb-[20px] w-full border-[1px] border-[solid] border-[#ddd] rounded-[4px] box-border"
           type="text"
           value={timeRange}
           onChange={(e) => setTimeRange(e.target.value)}
         />
 
-        <button disabled={isDisable}>Submit</button>
+        <button
+          className="bg-[blueviolet] border-[0] text-[#fff] p-[10px] rounded-[4px] cursor-pointer"
+          disabled={isDisable}
+        >
+          Submit
+        </button>
       </form>
-      <button onClick={handleUpdate} disabled={!isDisable}>
+      <button
+        className="bg-[rgb(32,_199,_46)] border-[0] text-[#fff] p-[10px]  rounded-[4px] cursor-pointer mt-[10px]"
+        onClick={handleUpdate}
+        disabled={!isDisable}
+      >
         update
       </button>
     </div>

@@ -1,15 +1,15 @@
 const Navbar = () => {
   return (
     <>
-      <header>
-        <div className="container">
+      <header className="bg-[#ffffff]">
+        <div className="max-w-[1400px] mx-[auto] my-[0] px-[20px] py-[10px] flex items-center justify-between">
           <h1>Event Mangement</h1>
-          <nav>
+          <nav className="flex items-center">
             <div>
               <span>emali@email.com</span>
-              <button>Log out</button>
-              <a href="">SignUp</a>
-              <a href="">Login</a>
+              <button className="bg-[#fff] text-[red] border-[2px] border-[solid] border-[greenyellow] px-[10px] py-[6px] rounded-[4px] cursor-pointer text-[1em] ml-[10px]">Log out</button>
+              <a className="text-[#333] no-underline ml-[10px]" href="">SignUp</a>
+              <a className="text-[#333] no-underline ml-[10px]" href="">Login</a>
             </div>
           </nav>
         </div>
