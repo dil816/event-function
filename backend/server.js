@@ -3,6 +3,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import agendaRoutes from "../backend/routes/agendaRoutes.js";
+import eventRoutes from "../backend/routes/eventRoutes.js";
 
 // express app
 const app = express();
@@ -17,6 +18,7 @@ app.use((req, res, next) => {
 
 // router
 app.use("/api/ajendas", agendaRoutes);
+app.use("/api/Events", eventRoutes);
 
 // connect to the DB
 mongoose
