@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import Sessionform from "../components/Sessionform";
 import AjendaDetail from "../components/AjendaDetail";
 import useAjendacontext from "../hooks/useAjendacontext";
+import SideNavbar from "../components/SideNavbar";
 
 const Ajendas = () => {
   //const [ajendas, setAjendas] = useState(null);
@@ -21,17 +22,22 @@ const Ajendas = () => {
   }, [dispatch]);
   console.log(ajenda);
   return (
-    <div className="max-w-[1400px] p-[20px] mx-[auto] my-[0]">
-      <div className="grid grid-cols-[3fr_1fr] gap-[100px]">
-        <div className="sessions">
-          {ajenda &&
-            ajenda.map((ajend) => (
-              <AjendaDetail key={ajend._id} ajend={ajend} />
-            ))}
+    <>
+      <div className="flex flex-wrap [@media_screen_and(max-width:700px)]:flex-col">
+        <SideNavbar />
+        <div className="flex-[55%] bg-[#f1f1f1] p-[20px]">
+          <div className="sessions">
+            {ajenda &&
+              ajenda.map((ajend) => (
+                <AjendaDetail key={ajend._id} ajend={ajend} />
+              ))}
+          </div>
         </div>
-        <Sessionform />
+        <div className="flex-[25%] p-[20px]">
+          <Sessionform />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

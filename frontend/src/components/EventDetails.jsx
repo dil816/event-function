@@ -1,5 +1,4 @@
 const EventDetails = () => {
-  
   return (
     <>
       <div className="ml-5 mr-5 mt-8 max-w-sm rounded overflow-hidden shadow-lg">

@@ -33,13 +33,16 @@ export const getOneevents = async (req, res) => {
 
 //Post an Events
 export const createEvents = async (req, res) => {
-  const { eventTitle, startDate, location, description } = req.body;
+  const { eventTitle, startDate, startTime, location, description, eventType } =
+    req.body;
   try {
     const result = await event.create({
       eventTitle,
       startDate,
+      startTime,
       location,
       description,
+      eventType,
     });
 
     if (!result) {

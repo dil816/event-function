@@ -3,7 +3,7 @@ const Navbar = () => {
     <>
       <header className="bg-[#ffffff]">
         <div className="max-w-[1400px] mx-[auto] my-[0] px-[20px] py-[10px] flex items-center justify-between">
-          <h1>Event Mangement</h1>
+          <h1 className="text-xl">MEGA Events</h1>
           <nav className="flex items-center">
             <div>
               <span>emali@email.com</span>

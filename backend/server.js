@@ -18,7 +18,7 @@ app.use((req, res, next) => {
 
 // router
 app.use("/api/ajendas", agendaRoutes);
-app.use("/api/Events", eventRoutes);
+app.use("/api/events", eventRoutes);
 
 // connect to the DB
 mongoose
