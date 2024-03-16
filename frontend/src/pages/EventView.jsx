@@ -11,21 +11,22 @@ const EventView = () => {
       const data = await response.json();
 
       console.log(data);
-      if(response.ok){
-        setEvents(data)
+      if (response.ok) {
+        setEvents(data);
       }
     };
 
     fetchEvents();
-  }, []);
-
+  }, [setEvents]);
+  console.log(events);
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
         <EventDetails />
-        <EventDetails />
-        <EventDetails />
-        <EventDetails />
+        {events &&
+          events.map((evnt) => {
+            <EventDetails key={evnt} evnt={evnt} />;
+          })}
       </div>
     </>
   );

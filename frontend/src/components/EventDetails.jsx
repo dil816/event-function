@@ -1,4 +1,5 @@
-const EventDetails = () => {
+import propTypes from "prop-types";
+const EventDetails = ({ evnt }) => {
   return (
     <>
       <div className="ml-5 mr-5 mt-8 max-w-sm rounded overflow-hidden shadow-lg">
@@ -8,26 +9,29 @@ const EventDetails = () => {
           alt="Sunset in the mountains"
         />
         <div className="px-6 py-4">
-          <div className="font-bold text-xl mb-2">MEGA Launch Event</div>
+          <div className="font-bold text-xl mb-2">{evnt.eventTitle}</div>
           <span className="inline-block bg-gray-300 rounded-full px-3 py-2 text-sm font-semibold text-gray-700 mr-2 mb-2">
-            March 15 2024
+            {evnt.startDate}
           </span>
           <p className="text-gray-700 text-base">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Voluptatibus quia, nulla! Maiores et perferendis eaque.
+            {evnt.description}
           </p>
         </div>
         <div className="px-6 pt-4 pb-2">
           <span className="inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700 mr-2 mb-2">
-            7:00 pm - 10:00 pm
+            {evnt.startTime}
           </span>
           <span className="inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700 mr-2 mb-2">
-            #MEGALaunch
+            {`#${evnt.eventType}`}
           </span>
         </div>
       </div>
     </>
   );
+};
+
+EventDetails.propTypes = {
+  evnt: propTypes.object,
 };
 
 export default EventDetails;
