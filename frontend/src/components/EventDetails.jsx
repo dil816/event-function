@@ -5,8 +5,8 @@ const EventDetails = ({ evnt }) => {
       <div className="ml-5 mr-5 mt-8 max-w-sm rounded overflow-hidden shadow-lg">
         <img
           className="w-auto h-auto"
-          src="https://picsum.photos/id/237/400/150"
-          alt="Sunset in the mountains"
+          src={`./public/images/${evnt.photo}`}
+          alt="Card image"
         />
         <div className="px-6 py-4">
           <div className="font-bold text-xl mb-2">{evnt.eventTitle}</div>

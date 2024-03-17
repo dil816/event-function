@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const Eventform = () => {
   const [eventTitle, setEventTitle] = useState("");
@@ -8,46 +9,38 @@ export const Eventform = () => {
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
   const [eventType, setEventType] = useState("");
+  const [file, setFile] = useState();
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const submitData = {
-      eventTitle,
-      startDate,
-      startTime,
-      location,
-      description,
-      eventType,
-    };
+    const submitData = new FormData();
 
-    const response = await fetch("http://localhost:4000/api/events/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(submitData),
-    });
+    submitData.append("eventTitle", eventTitle);
+    submitData.append("startDate", startDate);
+    submitData.append("startTime", startTime);
+    submitData.append("location", location);
+    submitData.append("description", description);
+    submitData.append("eventType", eventType);
+    submitData.append("file", file);
 
-    const data = await response.json();
+    axios
+      .post("http://localhost:4000/api/events/", submitData)
+      .then(() => {
+        setEventTitle("");
+        setStartDate("");
+        setStartTime("");
+        setLocation("");
+        setDescription("");
+        setEventType("");
+        //setFile(null);
 
-    if (!response.ok) {
-      console.log(data.error);
-    }
-
-    if (response.ok) {
-      setEventTitle("");
-      setStartDate("");
-      setStartTime("");
-      setLocation("");
-      setDescription("");
-      setEventType("");
-
-      console.log("new event added");
-      navigate('/admin/events')
-    }
+        console.log("new event added");
+        navigate("/admin/events");
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -111,6 +104,9 @@ export const Eventform = () => {
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 type="File"
+                accept=".png, .jpg, .jpeg"
+                name="photo"
+                onChange={(e) => setFile(e.target.files[0])}
               />
             </div>
           </div>
@@ -137,10 +133,9 @@ export const Eventform = () => {
                 <select
                   className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   id="grid-state"
-                  value={eventType}
                   onChange={(e) => setEventType(e.target.value)}
                 >
-                  <option>Conference</option>
+                  <option>choose</option>
                   <option>Virtual Event</option>
                   <option>Meeting</option>
                   <option>Product Launch</option>
@@ -148,6 +143,7 @@ export const Eventform = () => {
                   <option>Seminars</option>
                   <option>workshop</option>
                   <option>festival</option>
+                  <option>Conference</option>
                 </select>
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                   <svg

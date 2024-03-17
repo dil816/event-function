@@ -6,6 +6,7 @@ import {
   deleteEvents,
   updateEvents,
 } from "../controllers/eventController.js";
+import { upload } from "../middleware/requirePhoto.js";
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ router.get("/:id", getOneevents);
 router.get("/", getAllevents);
 
 // Post An Event
-router.post("/", createEvents);
+router.post("/", upload.single("file"), createEvents);
 
 // Delete An Event
 router.delete("/:id", deleteEvents);

@@ -22,12 +22,11 @@ const EventTable = ({ addEvent }) => {
 
   return (
     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-      <td className="py-4 px-6">0</td>
       <td className="py-4 px-6">{addEvent.eventTitle}</td>
       <td className="py-4 px-6">{addEvent.startDate}</td>
       <td className="py-4 px-6">{addEvent.startTime}</td>
       <td className="py-4 px-6">{addEvent.description}</td>
-      <td className="py-4 px-6">poster.png</td>
+      <td className="py-4 px-6">{addEvent.photo}</td>
       <td className="py-4 px-6">{addEvent.eventType}</td>
       <td className="py-4 px-6">{addEvent.location}</td>
 
@@ -41,6 +40,11 @@ const EventTable = ({ addEvent }) => {
         <button className="btn btn-outline btn-error" onClick={Deletehandler}>
           Delete
         </button>
+      </td>
+      <td className="py-4 px-6">
+        <Link to={`/admin/addajenda/${addEvent._id}`}>
+          <button className="btn btn-outline btn-error">sessions</button>
+        </Link>
       </td>
     </tr>
   );

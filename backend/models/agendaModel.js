@@ -22,6 +22,9 @@ const agendaSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    eventId: {
+      type: String,
+    },
   },
   {
     timestamps: true,

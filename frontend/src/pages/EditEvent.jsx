@@ -69,7 +69,7 @@ const EditEvent = () => {
       setEventType("");
 
       console.log("ajenda updated");
-      navigate("/admin/events")
+      navigate("/admin/events");
     }
   };
 

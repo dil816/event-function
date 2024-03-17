@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import useAjendacontext from "../hooks/useAjendacontext";
+import { useParams } from "react-router-dom";
 
 const Sessionform = () => {
+  const { eventId } = useParams();
+
   const { ajenda, _id, dispatch } = useAjendacontext();
 
   const [date, setDate] = useState("");
@@ -25,7 +28,7 @@ const Sessionform = () => {
       });
     }
   }, [_id, ajenda]);
-
+  console.log(eventId);
   const handleUpdate = async () => {
     const subData = { title, date, startTime, endTime, timeRange, _id };
 
@@ -60,7 +63,7 @@ const Sessionform = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const subData = { title, date, startTime, endTime, timeRange };
+    const subData = { title, date, startTime, endTime, timeRange, eventId };
 
     const response = await fetch("http://localhost:4000/api/ajendas/", {
       method: "POST",

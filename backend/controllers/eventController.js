@@ -35,6 +35,7 @@ export const getOneevents = async (req, res) => {
 export const createEvents = async (req, res) => {
   const { eventTitle, startDate, startTime, location, description, eventType } =
     req.body;
+  const photo = req.file.filename;
   try {
     const result = await event.create({
       eventTitle,
@@ -43,6 +44,7 @@ export const createEvents = async (req, res) => {
       location,
       description,
       eventType,
+      photo,
     });
 
     if (!result) {

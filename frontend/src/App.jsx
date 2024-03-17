@@ -13,6 +13,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/admin/ajenda" element={<Ajendas />} />
+        <Route path="/admin/addajenda/:eventId" element={<Ajendas />} />
         <Route path="/Events" element={<EventView />} />
         <Route path="/admin/addevent" element={<AddEvent />} />
         <Route path="/admin/editevent/:id" element={<EditEvent />} />

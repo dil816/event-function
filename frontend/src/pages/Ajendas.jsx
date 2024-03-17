@@ -3,8 +3,10 @@ import Sessionform from "../components/Sessionform";
 import AjendaDetail from "../components/AjendaDetail";
 import useAjendacontext from "../hooks/useAjendacontext";
 import SideNavbar from "../components/SideNavbar";
+import { useParams } from "react-router-dom";
 
 const Ajendas = () => {
+  const { eventId } = useParams();
   //const [ajendas, setAjendas] = useState(null);
   const { ajenda, dispatch } = useAjendacontext();
   useEffect(() => {
@@ -28,9 +30,11 @@ const Ajendas = () => {
         <div className="flex-[55%] bg-[#f1f1f1] p-[20px]">
           <div className="sessions">
             {ajenda &&
-              ajenda.map((ajend) => (
-                <AjendaDetail key={ajend._id} ajend={ajend} />
-              ))}
+              ajenda.map((ajend) => {
+                if (ajend.eventId  == eventId) {
+                  return <AjendaDetail key={ajend._id} ajend={ajend} />
+                }
+              })}
           </div>
         </div>
         <div className="flex-[25%] p-[20px]">

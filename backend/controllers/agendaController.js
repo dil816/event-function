@@ -34,7 +34,7 @@ export const getOneagenda = async (req, res) => {
 
 // post an agenda
 export const createAnagenda = async (req, res) => {
-  const { title, date, startTime, endTime, timeRange } = req.body;
+  const { title, date, startTime, endTime, timeRange,eventId } = req.body;
 
   try {
     const result = await agenda.create({
@@ -43,6 +43,7 @@ export const createAnagenda = async (req, res) => {
       startTime,
       endTime,
       timeRange,
+      eventId,
     });
 
     if (!result) {
