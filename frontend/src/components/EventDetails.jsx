@@ -13,9 +13,7 @@ const EventDetails = ({ evnt }) => {
           <span className="inline-block bg-gray-300 rounded-full px-3 py-2 text-sm font-semibold text-gray-700 mr-2 mb-2">
             {evnt.startDate}
           </span>
-          <p className="text-gray-700 text-base">
-            {evnt.description}
-          </p>
+          <p className="text-gray-700 text-base">{evnt.description}</p>
         </div>
         <div className="px-6 pt-4 pb-2">
           <span className="inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700 mr-2 mb-2">
@@ -23,6 +21,9 @@ const EventDetails = ({ evnt }) => {
           </span>
           <span className="inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700 mr-2 mb-2">
             {`#${evnt.eventType}`}
+          </span>
+          <span className="inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700 mr-2 mb-2">
+            {`${evnt.location}`}
           </span>
         </div>
       </div>

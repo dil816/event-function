@@ -1,71 +1,53 @@
-import React from "react";
+import propTypes from "prop-types";
+import { Link } from "react-router-dom";
+const EventTable = ({ addEvent }) => {
+  const Deletehandler = async () => {
+    const response = await fetch(
+      `http://localhost:4000/api/events/${addEvent._id}`,
+      {
+        method: "DELETE",
+      }
+    );
 
-const EventTable = () => {
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.log(data.error);
+    }
+
+    if (response.ok) {
+      console.log("delete success");
+    }
+  };
+
   return (
-    <>
-      <div className="flex items-center justify-center min-h-[250px]">
-        <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                <th scope="col" className="py-3 px-6">
-                  ID
-                </th>
-                <th scope="col" className="py-3 px-6">
-                  Event Name
-                </th>
-                <th scope="col" className="py-3 px-6">
-                  Start Date
-                </th>
-                <th scope="col" className="py-3 px-6">
-                  Start Time
-                </th>
-                <th scope="col" className="py-3 px-6">
-                  Description
-                </th>
-                <th scope="col" className="py-3 px-6">
-                  Poster
-                </th>
-                <th scope="col" className="py-3 px-6">
-                  Location
-                </th>
-                <th scope="col" className="py-3 px-6">
-                  Event Type
-                </th>
-                <th scope="col" className="py-3 px-6">
-                  Edit
-                </th>
-                <th scope="col" className="py-3 px-6">
-                  Delete
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td className="py-4 px-6">01</td>
-                <td className="py-4 px-6">Mega Launch</td>
-                <td className="py-4 px-6">Sep 10 2024</td>
-                <td className="py-4 px-6">10.00 AM</td>
-                <td className="py-4 px-6">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Accusantium sed ex aspernatur
-                </td>
-                <td className="py-4 px-6">poster.png</td>
-                <td className="py-4 px-6">Gall face</td>
-                <td className="py-4 px-6">ceremoney</td>
-                <td className="py-4 px-6">
-                  <button className="btn btn-outline btn-error">Edit</button>
-                </td>
-                <td className="py-4 px-6">
-                  <button className="btn btn-outline btn-error">Delete</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </>
+    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+      <td className="py-4 px-6">0</td>
+      <td className="py-4 px-6">{addEvent.eventTitle}</td>
+      <td className="py-4 px-6">{addEvent.startDate}</td>
+      <td className="py-4 px-6">{addEvent.startTime}</td>
+      <td className="py-4 px-6">{addEvent.description}</td>
+      <td className="py-4 px-6">poster.png</td>
+      <td className="py-4 px-6">{addEvent.eventType}</td>
+      <td className="py-4 px-6">{addEvent.location}</td>
+
+      <td className="py-4 px-6">
+        <Link to={`/admin/editevent/${addEvent._id}`}>
+          <button className="btn btn-outline btn-error">Edit</button>
+        </Link>
+      </td>
+
+      <td className="py-4 px-6">
+        <button className="btn btn-outline btn-error" onClick={Deletehandler}>
+          Delete
+        </button>
+      </td>
+    </tr>
   );
+};
+
+EventTable.propTypes = {
+  addEvent: propTypes.object,
 };
 
 export default EventTable;

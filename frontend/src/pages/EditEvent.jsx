@@ -1,17 +1,40 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-export const Eventform = () => {
+const EditEvent = () => {
   const [eventTitle, setEventTitle] = useState("");
   const [startDate, setStartDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
   const [eventType, setEventType] = useState("");
-
+  const { id } = useParams();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
+    const fetchdata = async () => {
+      const response = await fetch(`http://localhost:4000/api/events/${id}`);
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.log("data not fetched");
+      }
+
+      if (response.ok) {
+        setEventTitle(data.eventTitle);
+        setStartDate(data.startDate);
+        setStartTime(data.startTime);
+        setLocation(data.location);
+        setDescription(data.description);
+        setEventType(data.eventType);
+      }
+    };
+
+    fetchdata();
+  }, []);
+
+  const handleUpdate = async (e) => {
     e.preventDefault();
 
     const submitData = {
@@ -23,8 +46,8 @@ export const Eventform = () => {
       eventType,
     };
 
-    const response = await fetch("http://localhost:4000/api/events/", {
-      method: "POST",
+    const response = await fetch(`http://localhost:4000/api/events/${id}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
@@ -45,15 +68,15 @@ export const Eventform = () => {
       setDescription("");
       setEventType("");
 
-      console.log("new event added");
-      navigate('/admin/events')
+      console.log("ajenda updated");
+      navigate("/admin/events")
     }
   };
 
   return (
     <>
       <div className="mt-9 flex flex-col items-center justify-center">
-        <form className="w-full max-w-lg" onSubmit={handleSubmit}>
+        <form className="w-full max-w-lg" onSubmit={handleUpdate}>
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -171,7 +194,7 @@ export const Eventform = () => {
               />
             </div>
             <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-              <button className="btn mt-5">Submit</button>
+              <button className="btn mt-5">Update</button>
             </div>
           </div>
         </form>
@@ -180,4 +203,4 @@ export const Eventform = () => {
   );
 };
 
-export default Eventform;
+export default EditEvent;
