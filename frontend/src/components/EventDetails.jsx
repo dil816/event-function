@@ -1,8 +1,10 @@
 import propTypes from "prop-types";
+import { Link } from "react-router-dom";
 const EventDetails = ({ evnt }) => {
   return (
     <>
-      <div className="ml-5 mr-5 mt-8 max-w-sm rounded overflow-hidden shadow-lg">
+     <Link to={`/events/${evnt._id}`}>
+     <div className="ml-5 mr-5 mt-8 max-w-sm rounded overflow-hidden shadow-lg">
         <img
           className="w-auto h-auto"
           src={`./public/images/${evnt.photo}`}
@@ -27,6 +29,7 @@ const EventDetails = ({ evnt }) => {
           </span>
         </div>
       </div>
+     </Link> 
     </>
   );
 };

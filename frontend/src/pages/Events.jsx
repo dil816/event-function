@@ -5,6 +5,15 @@ import { Link } from "react-router-dom";
 
 const Events = () => {
   const [addEvents, setAddEvents] = useState(null);
+  const [query, setQuery] = useState("");
+  const keys = [
+    "description",
+    "eventTitle",
+    "eventType",
+    "location",
+    "startDate",
+    "startTime",
+  ];
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch("http://localhost:4000/api/events/");
@@ -19,6 +28,12 @@ const Events = () => {
     fetchData();
   }, [setAddEvents]);
 
+  const search = (data) => {
+    return data.filter((item) =>
+      keys.some((key) => item[key].toLowerCase().includes(query))
+    );
+  };
+
   return (
     <>
       <div className="flex flex-wrap [@media_screen_and(max-width:700px)]:flex-col">
@@ -26,7 +41,13 @@ const Events = () => {
         <div className="flex-[85%] p-[20px]">
           <div className="flex flex-wrap ">
             <label className="input input-bordered flex items-center gap-2 w-72">
-              <input type="text" className="grow" placeholder="Search" />
+              <input
+                type="text"
+                className="grow"
+                placeholder="Search.."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
@@ -84,7 +105,7 @@ const Events = () => {
                 </thead>
                 <tbody>
                   {addEvents &&
-                    addEvents.map((addEvent) => (
+                    search(addEvents).map((addEvent) => (
                       <EventTable key={addEvent._id} addEvent={addEvent} />
                     ))}
                 </tbody>
