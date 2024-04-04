@@ -78,7 +78,9 @@ export const updateEvents = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const result = await event.findOneAndUpdate({ _id: id }, { ...req.body });
+    const patchData = { ...req.body, photo: req.file.filename };
+
+    const result = await event.findOneAndUpdate({ _id: id }, { ...patchData });
 
     if (!result) {
       return res.status(400).json({ error: "No data found" });

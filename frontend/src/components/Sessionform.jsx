@@ -29,6 +29,17 @@ const Sessionform = () => {
     }
   }, [_id, ajenda]);
   console.log(eventId);
+
+  useEffect(() => {
+    const timeRangeCalculate = () => {
+      const stDate = new Date(`${date}T` + `${startTime}:00`);
+      const edDate = new Date(`${date}T` + `${endTime}:00`);
+      let range = Math.abs(edDate.getTime() - stDate.getTime()) / 60000;
+      return range;
+    };
+    setTimeRange(timeRangeCalculate());
+  }, [startTime, endTime, date]);
+
   const handleUpdate = async () => {
     const subData = { title, date, startTime, endTime, timeRange, _id };
 

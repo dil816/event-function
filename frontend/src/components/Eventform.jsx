@@ -9,8 +9,7 @@ export const Eventform = () => {
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
   const [eventType, setEventType] = useState("");
-  const [file, setFile] = useState();
-
+  const [file, setFile] = useState({});
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -35,7 +34,7 @@ export const Eventform = () => {
         setLocation("");
         setDescription("");
         setEventType("");
-        //setFile(null);
+        setFile({});
 
         console.log("new event added");
         navigate("/admin/events");
@@ -119,7 +118,7 @@ export const Eventform = () => {
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 type="text"
-                placeholder="Albuquerque"
+                placeholder="location"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
               />

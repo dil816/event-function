@@ -23,6 +23,6 @@ router.post("/", upload.single("file"), createEvents);
 router.delete("/:id", deleteEvents);
 
 // Update An Event
-router.put("/:id", updateEvents);
+router.put("/:id", upload.single("file"), updateEvents);
 
 export default router;

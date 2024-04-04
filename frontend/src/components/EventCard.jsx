@@ -1,46 +1,103 @@
-const EventCard = ({evnt}) => {
+import { format } from "date-fns";
+import { useEffect } from "react";
+import useAjendacontext from "../hooks/useAjendacontext";
+import AjendaDetail from "./AjendaDetail";
+import { useParams } from "react-router-dom";
+import ProfileCard from "./ProfileCard";
+//import dayjs from "dayjs";
+//import customParseFormat  from 'dayjs/plugin/customParseFormat'
+//dayjs.extend(customParseFormat)
+
+const EventCard = ({ evnt }) => {
+  //const abc = dayjs(`${evnt.startTime}:00`, "HH:mm:ss");
+  //console.log(abc);
+
+  //const timeString12hr = new Date()
+  //.toLocaleTimeString('en-US',
+  // {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'}
+  //);
+  //console.log(timeString12hr);
+  const { eventId } = useParams();
+  const { ajenda, dispatch } = useAjendacontext();
+  useEffect(() => {
+    const fetchajenda = async () => {
+      const response = await fetch("http://localhost:4000/api/ajendas");
+
+      const data = await response.json();
+      //console.log(data);
+      if (response.ok) {
+        //setAjendas(data);
+        dispatch({ type: "GET_AJENDAS", payload: data });
+      }
+    };
+    fetchajenda();
+  }, [dispatch, eventId]);
+  console.log(ajenda);
   return (
     <>
-      <div className="fixed bg-black bg-opacity-60 top-0 left-0 right-0 bottom-0 z-50 flex justify-center items-center">
-        <div className="w-[600px] max-w-full h-[300px] lg:max-w-full lg:flex">
-          <div
-            className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-            style={{ backgroundImage: `url(./public/images/)` }}
-            title="Woman holding a mug"
-          ></div>
-          <div className="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-            <div className="mb-8">
-              <p className="text-sm text-gray-600 flex items-center">
-                <svg
-                  className="fill-current text-gray-500 w-3 h-3 mr-2"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M4 8V6a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h1zm5 6.73V17h2v-2.27a2 2 0 1 0-2 0zM7 6v2h6V6a3 3 0 0 0-6 0z" />
-                </svg>
-                Members only
-              </p>
-              <div className="text-gray-900 font-bold text-xl mb-2">
-                Can coffee make you a better developer?
+      <div className="flex flex-wrap [@media_screen_and(max-width:700px)]:flex-col">
+        <div className="flex-[65%]  p-[30px]">
+          <h1 className="mb-4 text-2xl font-semi bold leading-none tracking-tight text-gray-800">
+            Event Details
+          </h1>
+          <div className="flex flex-col w-full bg-white rounded shadow-lg ">
+            <div
+              className="w-full h-64 bg-top bg-cover rounded-t"
+              style={{
+                backgroundImage: `url(../public/images/${evnt.photo})`,
+              }}
+            ></div>
+            <div className="flex flex-col w-full md:flex-row">
+              <div className="flex flex-row justify-around p-4 font-bold leading-none text-gray-800 uppercase bg-gray-400 rounded md:flex-col md:items-center md:justify-center md:w-1/4">
+                <div className="md:text-3xl">
+                  {format(new Date(evnt.startDate), "MMM")}
+                </div>
+                <div className="md:text-6xl">
+                  {format(new Date(evnt.startDate), "dd")}
+                </div>
+                <div className="md:text-xl">
+                  {format(
+                    new Date(`1970-01-01T` + `${evnt.startTime}:00`),
+                    "p"
+                  )}
+                </div>
               </div>
-              <p className="text-gray-700 text-base">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptatibus quia, nulla! Maiores et perferendis eaque,
-                exercitationem praesentium nihil.
-              </p>
-            </div>
-            <div className="flex items-center">
-              <img
-                className="w-10 h-10 rounded-full mr-4"
-                src="/img/jonathan.jpg"
-                alt="Avatar of Jonathan Reinink"
-              />
-              <div className="text-sm">
-                <p className="text-gray-900 leading-none">Jonathan Reinink</p>
-                <p className="text-gray-600">Aug 18</p>
+              <div className="p-4 font-normal text-gray-800 md:w-3/4">
+                <h1 className="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800">
+                  {evnt.eventTitle}
+                </h1>
+                <p className="leading-normal">{evnt.description}</p>
+                <span className="inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700 mr-2  mt-2">
+                  {`#${evnt.eventType}`}
+                </span>
+                <span className="inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-semibold text-gray-700 mr-2  mt-2">
+                  {`📍 ${evnt.location}`}
+                </span>
+                <div className="flex flex-row items-center mt-4 text-gray-700">
+                  <div className="w-1/2">Mercedes-Benz Superdome</div>
+                  <div className="w-1/2 flex justify-end">
+                    <img
+                      src="https://collegefootballplayoff.com/images/section_logo.png"
+                      alt=""
+                      className="w-8"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+          <ProfileCard />
+        </div>
+        <div className="flex-[35%] p-[20px]">
+          <h1 className="mb-4 mt-4 text-2xl font-semi bold leading-none tracking-tight text-gray-800">
+            Event Sessions
+          </h1>
+          {ajenda &&
+            ajenda.map((ajend) => {
+              if (ajend.eventId == eventId) {
+                return <AjendaDetail key={ajend._id} ajend={ajend} />;
+              }
+            })}
         </div>
       </div>
     </>

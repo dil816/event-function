@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 const EditEvent = () => {
   const [eventTitle, setEventTitle] = useState("");
@@ -8,6 +9,7 @@ const EditEvent = () => {
   const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
   const [eventType, setEventType] = useState("");
+  const [file, setFile] = useState({});
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -28,15 +30,16 @@ const EditEvent = () => {
         setLocation(data.location);
         setDescription(data.description);
         setEventType(data.eventType);
+        setFile({ originalname: data.photo });
       }
     };
 
     fetchdata();
-  }, []);
+  }, [id]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-
+    /*
     const submitData = {
       eventTitle,
       startDate,
@@ -44,8 +47,34 @@ const EditEvent = () => {
       location,
       description,
       eventType,
-    };
+    };*/
 
+    const editData = new FormData();
+
+    editData.append("eventTitle", eventTitle);
+    editData.append("startDate", startDate);
+    editData.append("startTime", startTime);
+    editData.append("location", location);
+    editData.append("description", description);
+    editData.append("eventType", eventType);
+    editData.append("file", file);
+
+    axios
+      .put(`http://localhost:4000/api/events/${id}`, editData)
+      .then(() => {
+        setEventTitle("");
+        setStartDate("");
+        setStartTime("");
+        setLocation("");
+        setDescription("");
+        setEventType("");
+        setFile({});
+
+        console.log("event updated");
+        navigate("/admin/events");
+      })
+      .catch((error) => console.log(error));
+    /*
     const response = await fetch(`http://localhost:4000/api/events/${id}`, {
       method: "PUT",
       headers: {
@@ -70,7 +99,7 @@ const EditEvent = () => {
 
       console.log("ajenda updated");
       navigate("/admin/events");
-    }
+    }*/
   };
 
   return (
@@ -134,6 +163,8 @@ const EditEvent = () => {
               <input
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 type="File"
+                accept=".png, .jpg, .jpeg"
+                onChange={(e) => setFile(e.target.files[0])}
               />
             </div>
           </div>

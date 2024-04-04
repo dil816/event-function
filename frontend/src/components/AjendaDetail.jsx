@@ -1,5 +1,6 @@
 import propTypes from "prop-types";
 import useAjendacontext from "../hooks/useAjendacontext";
+import { format } from "date-fns";
 
 const AjendaDetail = ({ ajend }) => {
   //const Navigate = useNavigate();
@@ -33,11 +34,19 @@ const AjendaDetail = ({ ajend }) => {
 
   return (
     <div className="bg-[#fff] w-auto h-[120px] rounded-[20px] mx-[auto] my-[20px] p-[15px] relative [box-shadow:2px_2px_5px_rgba(0,_0,_0,_0.05)]">
-      <h3 className="m-0 px-[6px] py-[0] text-[1.2em]">{ajend.date}</h3>
-      <p className="ml-[0] mr-[0] my-[0] px-[6px] py-[0] text-[0.8em] text-[#555]">{`${ajend.startTime} - ${ajend.endTime}`}</p>
-      <h4 className="m-0 px-[6px] py-[0] text-[1em] text-[#555]">
-        {ajend.title}
+      <h4 className="m-0 px-[6px] py-[0] text-[1em]">
+        {" "}
+        {`${format(
+          new Date(`1970-01-01T` + `${ajend.startTime}:00`),
+          "p"
+        )} - ${format(new Date(`1970-01-01T` + `${ajend.endTime}:00`), "p")}`}
       </h4>
+      <p className="ml-[0] mr-[0] my-[0] px-[6px] py-[0] text-[0.8em] text-[#555]">
+        {format(new Date(ajend.date), "PPP")}
+      </p>
+      <h3 className="m-0 px-[6px] py-[0] text-[1.3em] text-[#0c0c0c]">
+        {ajend.title}
+      </h3>
       <span className="left-[40px] px-[6px] py-[0] text-[#333] text-[0.8em]">
         {ajend.timeRange} min
       </span>

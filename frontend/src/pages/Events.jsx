@@ -42,7 +42,7 @@ const Events = () => {
           <div className="flex flex-wrap ">
             <label className="input input-bordered flex items-center gap-2 w-72">
               <input
-                type="text"
+                type="search"
                 className="grow"
                 placeholder="Search.."
                 value={query}
