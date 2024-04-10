@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import agendaRoutes from "../backend/routes/agendaRoutes.js";
 import eventRoutes from "../backend/routes/eventRoutes.js";
+import contributersRoutes from "./routes/contributersRoutes.js";
 
 // express app
 const app = express();
@@ -19,6 +20,7 @@ app.use((req, res, next) => {
 // router
 app.use("/api/ajendas", agendaRoutes);
 app.use("/api/events", eventRoutes);
+app.use("/api/contributors", contributersRoutes);
 
 // connect to the DB
 mongoose

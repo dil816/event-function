@@ -12,7 +12,7 @@ const router = express.Router();
 // GET all agendas
 router.get("/", getAllagendas);
 
-// GET one agenda
+// GET few agenda by eventId
 router.get("/:id", getOneagenda);
 
 // post an agenda

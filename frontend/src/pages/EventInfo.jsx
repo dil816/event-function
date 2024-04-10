@@ -13,7 +13,7 @@ const EventInfo = () => {
 
       const data = await response.json();
 
-      console.log(data);
+     // console.log(data);
       if (response.ok) {
         setEvents(data);
       }
@@ -24,7 +24,7 @@ const EventInfo = () => {
 
   return (
     <>
-      {events && <EventCard evnt={events}/>}
+      {events && <EventCard events={events}/>}
     </>
   );
 };

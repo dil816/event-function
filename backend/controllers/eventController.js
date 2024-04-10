@@ -53,7 +53,7 @@ export const createEvents = async (req, res) => {
 
     res.status(200).json(result);
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    res.status(404).json({ error: error.message });
   }
 };
 
@@ -64,7 +64,7 @@ export const deleteEvents = async (req, res) => {
   try {
     const result = await event.findOneAndDelete({ _id: id });
     if (!result) {
-      res.status(400).json({ error: "No data found" });
+      return res.status(400).json({ error: "No data found" });
     }
 
     res.status(200).json(result);

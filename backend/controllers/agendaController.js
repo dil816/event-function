@@ -15,12 +15,12 @@ export const getAllagendas = async (req, res) => {
   }
 };
 
-// GET one agenda
+// GET few agenda by eventId
 export const getOneagenda = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const result = await agenda.findById(id);
+    const result = await agenda.find({ eventId: id });
 
     if (!result) {
       return res.status(400).json({ error: "No data found" });
@@ -28,13 +28,13 @@ export const getOneagenda = async (req, res) => {
 
     res.status(200).json(result);
   } catch (error) {
-    return res.status(404).json({ error: error.message });
+    res.status(404).json({ error: error.message });
   }
 };
 
 // post an agenda
 export const createAnagenda = async (req, res) => {
-  const { title, date, startTime, endTime, timeRange,eventId } = req.body;
+  const { title, date, startTime, endTime, timeRange, eventId } = req.body;
 
   try {
     const result = await agenda.create({

@@ -4,7 +4,7 @@ import { format } from "date-fns";
 const EventDetails = ({ evnt }) => {
   return (
     <>
-      <Link to={`/events/${evnt._id}`}>
+      <Link to={`/eventsview/${evnt._id}`}>
         <div className="ml-5 mr-5 mt-8 max-w-sm rounded overflow-hidden shadow-lg">
           <img
             className="w-auto h-auto"

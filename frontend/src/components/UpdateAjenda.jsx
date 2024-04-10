@@ -30,7 +30,7 @@ const UpdateAjenda = () => {
       //}
     };
     fetchdata();
-  }, []);
+  }, [ajenda,id]);
 
   const handleUpdateAjenda = async (e) => {
     e.preventDefault();

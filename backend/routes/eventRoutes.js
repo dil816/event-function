@@ -13,7 +13,7 @@ const router = express.Router();
 // Get one Event
 router.get("/:id", getOneevents);
 
-// Get All Events
+// Get few speakers by eventId
 router.get("/", getAllevents);
 
 // Post An Event

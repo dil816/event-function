@@ -31,7 +31,7 @@ const EventTable = ({ addEvent }) => {
       <td className="py-4 px-6">{addEvent.location}</td>
 
       <td className="py-4 px-6">
-        <Link to={`/admin/editevent/${addEvent._id}`}>
+        <Link to={`/editevent/${addEvent._id}`}>
           <button className="btn btn-outline btn-error">Edit</button>
         </Link>
       </td>
@@ -42,7 +42,7 @@ const EventTable = ({ addEvent }) => {
         </button>
       </td>
       <td className="py-4 px-6">
-        <Link to={`/admin/addajenda/${addEvent._id}`}>
+        <Link to={`/addajenda/${addEvent._id}`}>
           <button className="btn btn-outline btn-error">sessions</button>
         </Link>
       </td>

@@ -71,7 +71,7 @@ const EditEvent = () => {
         setFile({});
 
         console.log("event updated");
-        navigate("/admin/events");
+        navigate("/events");
       })
       .catch((error) => console.log(error));
     /*

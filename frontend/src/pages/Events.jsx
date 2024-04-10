@@ -61,7 +61,7 @@ const Events = () => {
                 />
               </svg>
             </label>
-            <Link to={"/admin/addevent"}>
+            <Link to={"/addevent"}>
               <button className="btn btn-neutral ml-10">Add Event</button>
             </Link>
           </div>
