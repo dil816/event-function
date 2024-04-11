@@ -33,10 +33,44 @@ export const getOneevents = async (req, res) => {
 
 //Post an Events
 export const createEvents = async (req, res) => {
-  const { eventTitle, startDate, startTime, location, description, eventType } =
-    req.body;
-  const photo = req.file.filename;
   try {
+    const {
+      eventTitle,
+      startDate,
+      startTime,
+      location,
+      description,
+      eventType,
+    } = req.body;
+    const photo = req.file.filename;
+
+    let emptyFields = [];
+
+    if (!eventTitle) {
+      emptyFields.push("title");
+    }
+    if (!startDate) {
+      emptyFields.push("startdate");
+    }
+    if (!startTime) {
+      emptyFields.push("starttime");
+    }
+    if (!location) {
+      emptyFields.push("location");
+    }
+    if (!description) {
+      emptyFields.push("description");
+    }
+    if (!eventType) {
+      emptyFields.push("eventtype");
+    }
+    if (!photo) {
+      emptyFields.push("photo");
+    }
+    if (emptyFields.length > 0) {
+      return res.status(400).json({ emptyFields });
+    }
+
     const result = await event.create({
       eventTitle,
       startDate,
@@ -47,9 +81,10 @@ export const createEvents = async (req, res) => {
       photo,
     });
 
+    /*
     if (!result) {
       return res.status(400).json({ error: "No data found" });
-    }
+    }*/
 
     res.status(200).json(result);
   } catch (error) {

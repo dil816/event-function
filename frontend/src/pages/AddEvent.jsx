@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export const AddEvent = () => {
@@ -10,6 +10,10 @@ export const AddEvent = () => {
   const [description, setDescription] = useState("");
   const [eventType, setEventType] = useState("");
   const [file, setFile] = useState({});
+
+  const [emptyFields, setEmptyFields] = useState([]);
+  const [error, setError] = useState(null);
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -26,7 +30,11 @@ export const AddEvent = () => {
     submitData.append("file", file);
 
     axios
-      .post("http://localhost:4000/api/events/", submitData)
+      .post("http://localhost:4000/api/events/", submitData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then(() => {
         setEventTitle("");
         setStartDate("");
@@ -36,25 +44,52 @@ export const AddEvent = () => {
         setEventType("");
         setFile({});
 
+        setError("");
+        setEmptyFields([]);
+
         console.log("new event added");
         navigate("/events");
       })
-      .catch((error) => console.log(error));
+      .catch((res) => {
+        console.log(res);
+        setError(res.response.data.error);
+        setEmptyFields(res.response.data.emptyFields);
+      });
   };
-
+  console.log(error);
+  console.log(emptyFields);
   return (
     <>
       <div className="mt-9 flex flex-col items-center justify-center">
         <form className="w-full max-w-lg" onSubmit={handleSubmit}>
+          <div className="flex flex-wrap -mx-3 mb-6">
+            <div className="w-full px-3">
+              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                Poster
+              </label>
+              <input
+                className={`appearance-none block w-full bg-gray-200 text-gray-700 border ${
+                  error || null ? `border-red-600` : `border-gray-200`
+                }   rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
+                type="File"
+                accept=".png, .jpg, .jpeg"
+                name="photo"
+                onChange={(e) => setFile(e.target.files[0])}
+              />
+            </div>
+          </div>
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                 Start Date
               </label>
               <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                className={`appearance-none block w-full bg-gray-200 text-gray-700 border ${
+                  emptyFields.includes("startdate")
+                    ? `border-red-600`
+                    : `border-gray-200`
+                } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white  focus:border-gray-500`}
                 type="Date"
-                placeholder="Jane"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
               />
@@ -65,7 +100,11 @@ export const AddEvent = () => {
                 Start Time
               </label>
               <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className={`appearance-none block w-full bg-gray-200 text-gray-700 border ${
+                  emptyFields.includes("starttime")
+                    ? `border-red-600`
+                    : `border-gray-200`
+                } rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                 type="Time"
                 placeholder="Doe"
                 value={startTime}
@@ -80,7 +119,11 @@ export const AddEvent = () => {
                 Event Name
               </label>
               <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className={`appearance-none block w-full bg-gray-200 text-gray-700 border  ${
+                  emptyFields.includes("title")
+                    ? `border-red-600`
+                    : `border-gray-200`
+                } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                 type="text"
                 value={eventTitle}
                 onChange={(e) => setEventTitle(e.target.value)}
@@ -91,21 +134,13 @@ export const AddEvent = () => {
                 Description
               </label>
               <textarea
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className={`appearance-none block w-full bg-gray-200 text-gray-700 border  ${
+                  emptyFields.includes("description")
+                    ? `border-red-600`
+                    : `border-gray-200`
+                } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-              />
-            </div>
-            <div className="w-full px-3">
-              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                Poster
-              </label>
-              <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                type="File"
-                accept=".png, .jpg, .jpeg"
-                name="photo"
-                onChange={(e) => setFile(e.target.files[0])}
               />
             </div>
           </div>
@@ -116,7 +151,11 @@ export const AddEvent = () => {
                 Location
               </label>
               <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className={`appearance-none block w-full bg-gray-200 text-gray-700 border  ${
+                  emptyFields.includes("location")
+                    ? `border-red-600`
+                    : `border-gray-200`
+                } rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                 type="text"
                 placeholder="location"
                 value={location}
@@ -130,7 +169,11 @@ export const AddEvent = () => {
               </label>
               <div className="relative">
                 <select
-                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className={`block appearance-none w-full bg-gray-200 border  ${
+                    emptyFields.includes("eventtype")
+                      ? `border-red-600`
+                      : `border-gray-200`
+                  } text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                   id="grid-state"
                   onChange={(e) => setEventType(e.target.value)}
                 >
@@ -167,6 +210,9 @@ export const AddEvent = () => {
             </div>
             <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
               <button className="btn mt-5">Submit</button>
+              {error && (
+                <div className="text-red-600 text-xs italic">{error}</div>
+              )}
             </div>
           </div>
         </form>
