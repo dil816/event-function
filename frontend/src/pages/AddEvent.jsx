@@ -44,7 +44,7 @@ export const AddEvent = () => {
         setEventType("");
         setFile({});
 
-        setError("");
+        setError(null);
         setEmptyFields([]);
 
         console.log("new event added");
@@ -69,7 +69,9 @@ export const AddEvent = () => {
               </label>
               <input
                 className={`appearance-none block w-full bg-gray-200 text-gray-700 border ${
-                  error || null ? `border-red-600` : `border-gray-200`
+                  error && error.includes("Can")
+                    ? `border-red-600`
+                    : `border-gray-200`
                 }   rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                 type="File"
                 accept=".png, .jpg, .jpeg"
@@ -85,9 +87,10 @@ export const AddEvent = () => {
               </label>
               <input
                 className={`appearance-none block w-full bg-gray-200 text-gray-700 border ${
-                  emptyFields.includes("startdate")
+                  emptyFields && emptyFields.includes("startdate")
                     ? `border-red-600`
                     : `border-gray-200`
+                }
                 } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white  focus:border-gray-500`}
                 type="Date"
                 value={startDate}
@@ -101,7 +104,7 @@ export const AddEvent = () => {
               </label>
               <input
                 className={`appearance-none block w-full bg-gray-200 text-gray-700 border ${
-                  emptyFields.includes("starttime")
+                  emptyFields && emptyFields.includes("starttime")
                     ? `border-red-600`
                     : `border-gray-200`
                 } rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
@@ -120,7 +123,7 @@ export const AddEvent = () => {
               </label>
               <input
                 className={`appearance-none block w-full bg-gray-200 text-gray-700 border  ${
-                  emptyFields.includes("title")
+                  emptyFields && emptyFields.includes("title")
                     ? `border-red-600`
                     : `border-gray-200`
                 } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
@@ -135,7 +138,7 @@ export const AddEvent = () => {
               </label>
               <textarea
                 className={`appearance-none block w-full bg-gray-200 text-gray-700 border  ${
-                  emptyFields.includes("description")
+                  emptyFields && emptyFields.includes("description")
                     ? `border-red-600`
                     : `border-gray-200`
                 } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
@@ -152,7 +155,7 @@ export const AddEvent = () => {
               </label>
               <input
                 className={`appearance-none block w-full bg-gray-200 text-gray-700 border  ${
-                  emptyFields.includes("location")
+                  emptyFields && emptyFields.includes("location")
                     ? `border-red-600`
                     : `border-gray-200`
                 } rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
@@ -170,7 +173,7 @@ export const AddEvent = () => {
               <div className="relative">
                 <select
                   className={`block appearance-none w-full bg-gray-200 border  ${
-                    emptyFields.includes("eventtype")
+                    emptyFields && emptyFields.includes("eventtype")
                       ? `border-red-600`
                       : `border-gray-200`
                   } text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}

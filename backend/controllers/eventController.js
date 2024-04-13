@@ -68,7 +68,7 @@ export const createEvents = async (req, res) => {
       emptyFields.push("photo");
     }
     if (emptyFields.length > 0) {
-      return res.status(400).json({ emptyFields });
+      return res.status(400).json({ error: "fiil all fields", emptyFields });
     }
 
     const result = await event.create({

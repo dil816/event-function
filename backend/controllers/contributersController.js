@@ -34,18 +34,38 @@ export const getOnecontributors = async (req, res) => {
 
 // Post a speakers
 export const postOnecontributors = async (req, res) => {
-  const { name, contribution, eventId } = req.body;
-  const profileImage = req.file.filename;
   try {
+    const { name, contribution, eventId } = req.body;
+    const profileImage = req.file.filename;
+
+    let emptyFields = [];
+
+    if (!name) {
+      emptyFields.push("name");
+    }
+    if (!contribution) {
+      emptyFields.push("contribution");
+    }
+    if (!profileImage) {
+      emptyFields.push("profileimage");
+    }
+    if (emptyFields.length > 0) {
+      return res.status(400).json({ error: "fill all fields", emptyFields });
+    }
+
     const result = await contributers.create({
       name,
       contribution,
       profileImage,
       eventId,
     });
+
+    /*
     if (!result) {
       return res.status(400).json({ error: "No data found" });
-    }
+    }*/
+
+    res.status(200).json(result);
   } catch (error) {
     res.status(404).json({ error: error.message });
   }
