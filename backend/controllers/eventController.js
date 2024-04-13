@@ -113,9 +113,58 @@ export const updateEvents = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const patchData = { ...req.body, photo: req.file.filename };
+    const {
+      eventTitle,
+      startDate,
+      startTime,
+      location,
+      description,
+      eventType,
+    } = req.body;
+    const photo = req.file.filename;
 
-    const result = await event.findOneAndUpdate({ _id: id }, { ...patchData });
+    let emptyFields = [];
+
+    if (!eventTitle) {
+      emptyFields.push("title");
+    }
+    if (!startDate) {
+      emptyFields.push("startdate");
+    }
+    if (!startTime) {
+      emptyFields.push("starttime");
+    }
+    if (!location) {
+      emptyFields.push("location");
+    }
+    if (!description) {
+      emptyFields.push("description");
+    }
+    if (!eventType) {
+      emptyFields.push("eventtype");
+    }
+    if (!photo) {
+      emptyFields.push("photo");
+    }
+    if (emptyFields.length > 0) {
+      return res.status(400).json({ error: "fiil all fields", emptyFields });
+    }
+
+    //const patchData = { ...req.body, photo: req.file.filename };
+
+    const result = await event.findOneAndUpdate(
+      { _id: id },
+      {
+        eventTitle,
+        startDate,
+        startTime,
+        location,
+        description,
+        eventType,
+        photo,
+      }
+    );
+    //const result = await event.findOneAndUpdate({ _id: id }, { ...patchData });
 
     if (!result) {
       return res.status(400).json({ error: "No data found" });

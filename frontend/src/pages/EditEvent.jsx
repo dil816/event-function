@@ -10,6 +10,10 @@ const EditEvent = () => {
   const [description, setDescription] = useState("");
   const [eventType, setEventType] = useState("");
   const [file, setFile] = useState({});
+
+  const [emptyFields, setEmptyFields] = useState([]);
+  const [error, setError] = useState(null);
+
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -70,10 +74,17 @@ const EditEvent = () => {
         setEventType("");
         setFile({});
 
+        setError(null);
+        setEmptyFields([]);
+
         console.log("event updated");
         navigate("/events");
       })
-      .catch((error) => console.log(error));
+      .catch((res) => {
+        console.log(res);
+        setError(res.response.data.error);
+        setEmptyFields(res.response.data.emptyFields);
+      });
     /*
     const response = await fetch(`http://localhost:4000/api/events/${id}`, {
       method: "PUT",
@@ -112,7 +123,11 @@ const EditEvent = () => {
                 Start Date
               </label>
               <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                className={`appearance-none block w-full bg-gray-200 text-gray-700 border ${
+                  emptyFields && emptyFields.includes("startdate")
+                    ? `border-red-600`
+                    : `border-gray-200`
+                } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                 type="Date"
                 placeholder="Jane"
                 value={startDate}
@@ -125,7 +140,11 @@ const EditEvent = () => {
                 Start Time
               </label>
               <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className={`appearance-none block w-full bg-gray-200 text-gray-700 border ${
+                  emptyFields && emptyFields.includes("starttime")
+                    ? `border-red-600`
+                    : `border-gray-200`
+                } rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                 type="Time"
                 placeholder="Doe"
                 value={startTime}
@@ -140,7 +159,11 @@ const EditEvent = () => {
                 Event Name
               </label>
               <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className={`appearance-none block w-full bg-gray-200 text-gray-700 border ${
+                  emptyFields && emptyFields.includes("title")
+                    ? `border-red-600`
+                    : `border-gray-200`
+                } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                 type="text"
                 value={eventTitle}
                 onChange={(e) => setEventTitle(e.target.value)}
@@ -151,7 +174,11 @@ const EditEvent = () => {
                 Description
               </label>
               <textarea
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className={`appearance-none block w-full bg-gray-200 text-gray-700 border ${
+                  emptyFields && emptyFields.includes("description")
+                    ? `border-red-600`
+                    : `border-gray-200`
+                } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
@@ -161,7 +188,11 @@ const EditEvent = () => {
                 Poster
               </label>
               <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className={`appearance-none block w-full bg-gray-200 text-gray-700 border ${
+                  error && error.includes("Can")
+                    ? `border-red-600`
+                    : `border-gray-200`
+                } rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                 type="File"
                 accept=".png, .jpg, .jpeg"
                 onChange={(e) => setFile(e.target.files[0])}
@@ -175,9 +206,13 @@ const EditEvent = () => {
                 Location
               </label>
               <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className={`appearance-none block w-full bg-gray-200 text-gray-700 border ${
+                  emptyFields && emptyFields.includes("location")
+                    ? `border-red-600`
+                    : `border-gray-200`
+                } rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                 type="text"
-                placeholder="Albuquerque"
+                placeholder="location"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
               />
@@ -189,7 +224,11 @@ const EditEvent = () => {
               </label>
               <div className="relative">
                 <select
-                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className={`block appearance-none w-full bg-gray-200 border ${
+                    emptyFields && emptyFields.includes("eventtype")
+                      ? `border-red-600`
+                      : `border-gray-200`
+                  } text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                   id="grid-state"
                   value={eventType}
                   onChange={(e) => setEventType(e.target.value)}
@@ -220,12 +259,15 @@ const EditEvent = () => {
                 Demo
               </label>
               <input
-                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                className={`appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500`}
                 type="text"
               />
             </div>
             <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
               <button className="btn mt-5">Update</button>
+              {error && (
+                <div className="text-red-600 text-xs italic">{error}</div>
+              )}
             </div>
           </div>
         </form>
