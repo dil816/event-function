@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import useAjendacontext from "../hooks/useAjendacontext";
 import { useParams } from "react-router-dom";
+import useEventcontext from "../hooks/useEventcontext";
 import axios from "axios";
 
 const Sessionform = () => {
   const { eventId } = useParams();
 
   const { ajenda, _id, dispatch } = useAjendacontext();
+  const { dispatch1 } = useEventcontext();
 
   const [date, setDate] = useState("");
   const [title, setTitle] = useState("");
@@ -140,7 +142,7 @@ const Sessionform = () => {
     axios
       .post("http://localhost:4000/api/contributors", contributeData)
 
-      .then(() => {
+      .then((res) => {
         setName("");
         setContribution("");
         setConError(null);
@@ -150,6 +152,9 @@ const Sessionform = () => {
           inputfile.current.type = "text";
           inputfile.current.type = "file";
         }
+
+        dispatch1({ type: "CREATE_CONTRIBUTERS", payload: res.data });
+
         console.log("new contributer added");
       })
       .catch((res) => {
@@ -232,15 +237,14 @@ const Sessionform = () => {
           >
             Submit
           </button>
-          <button
-          className="bg-[rgb(32,_199,_46)] border-[0] text-[#fff] p-[10px]  rounded-[4px] cursor-pointer mt-[10px] ml-10"
+        </form>
+        <button
+          className="bg-[rgb(32,_199,_46)] border-[0] text-[#fff] p-[10px]  rounded-[4px] cursor-pointer mt-[10px] "
           onClick={handleUpdate}
           disabled={!isDisable}
         >
           update
         </button>
-        </form>
-       
         {error && <div className="text-red-600 text-xs italic">{error}</div>}
       </div>
       <br />

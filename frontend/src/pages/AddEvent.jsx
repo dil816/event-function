@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import useEventcontext from "../hooks/useEventcontext";
 
 export const AddEvent = () => {
+  const {events, dispatch1 } = useEventcontext();
+
   const [eventTitle, setEventTitle] = useState("");
   const [startDate, setStartDate] = useState("");
   const [startTime, setStartTime] = useState("");
@@ -35,7 +38,7 @@ export const AddEvent = () => {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then(() => {
+      .then((res) => {
         setEventTitle("");
         setStartDate("");
         setStartTime("");
@@ -46,6 +49,8 @@ export const AddEvent = () => {
 
         setError(null);
         setEmptyFields([]);
+
+        dispatch1({ type: "CREATE_EVENTS", payload1: res.data });
 
         console.log("new event added");
         navigate("/events");

@@ -1,6 +1,9 @@
 import propTypes from "prop-types";
 import { Link } from "react-router-dom";
+import useEventcontext from "../hooks/useEventcontext";
 const EventTable = ({ addEvent }) => {
+  const { dispatch1 } = useEventcontext();
+
   const Deletehandler = async () => {
     const response = await fetch(
       `http://localhost:4000/api/events/${addEvent._id}`,
@@ -16,6 +19,7 @@ const EventTable = ({ addEvent }) => {
     }
 
     if (response.ok) {
+      dispatch1({ type: "DELETE_EVENTS", payload1: data });
       console.log("delete success");
     }
   };

@@ -5,13 +5,15 @@ import useAjendacontext from "../hooks/useAjendacontext";
 import SideNavbar from "../components/SideNavbar";
 import ProfileCard from "../components/ProfileCard";
 import { useParams } from "react-router-dom";
+import useEventcontext from "../hooks/useEventcontext";
 
 const Ajendas = () => {
   const { eventId } = useParams();
   //const [ajendas, setAjendas] = useState(null);
-  const [contributors, setContributors] = useState(null);
+  //const [contributors, setContributors] = useState(null);
 
   const { ajenda, dispatch } = useAjendacontext();
+  const { contributors, dispatch1 } = useEventcontext();
   useEffect(() => {
     const fetchajenda = async () => {
       const response = await fetch(
@@ -38,11 +40,12 @@ const Ajendas = () => {
       const data = await response.json();
       console.log(data);
       if (response.ok) {
-        setContributors(data);
+        //setContributors(data);
+        dispatch1({ type: "GET_CONTRIBUTERS", payload: data });
       }
     };
     fetchcontributors();
-  }, [setContributors, eventId]);
+  }, [dispatch1, eventId]);
 
   return (
     <>

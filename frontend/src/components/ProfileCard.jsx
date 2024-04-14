@@ -1,4 +1,8 @@
+import useEventcontext from "../hooks/useEventcontext";
+
 const ProfileCard = ({ contributor }) => {
+  const { dispatch1 } = useEventcontext();
+
   const deletehandler = async () => {
     const response = await fetch(
       `http://localhost:4000/api/contributors/${contributor._id}`,
@@ -15,7 +19,7 @@ const ProfileCard = ({ contributor }) => {
 
     if (response.ok) {
       console.log("delete success");
-      //dispatch({ type: "DELETE_AJENDA", payload: data });
+      dispatch1({ type: "DELETE_CONTRIBUTER", payload: data });
     }
   };
 

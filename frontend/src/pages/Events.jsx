@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import EventTable from "../components/EventTable";
 import SideNavbar from "../components/SideNavbar";
 import { Link } from "react-router-dom";
+import useEventcontext from "../hooks/useEventcontext";
 
 const Events = () => {
-  const [addEvents, setAddEvents] = useState(null);
+  //const [addEvents, setAddEvents] = useState(null);
+  const { events, dispatch1 } = useEventcontext();
   const [query, setQuery] = useState("");
   const keys = [
     "description",
@@ -22,11 +24,12 @@ const Events = () => {
 
       console.log(data);
       if (response.ok) {
-        setAddEvents(data);
+        //setAddEvents(data);
+        dispatch1({ type: "GET_EVENTS", payload1: data });
       }
     };
     fetchData();
-  }, [setAddEvents]);
+  }, [dispatch1]);
 
   const search = (data) => {
     return data.filter((item) =>
@@ -104,8 +107,8 @@ const Events = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {addEvents &&
-                    search(addEvents).map((addEvent) => (
+                  {events &&
+                    search(events).map((addEvent) => (
                       <EventTable key={addEvent._id} addEvent={addEvent} />
                     ))}
                 </tbody>

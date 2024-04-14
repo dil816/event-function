@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import EventDetails from "../components/EventDetails";
+import useEventcontext from "../hooks/useEventcontext";
 
 const EventView = () => {
-  const [events, setEvents] = useState(null);
+  //const [events, setEvents] = useState(null);
+  const { events, dispatch1 } = useEventcontext();
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -12,12 +14,13 @@ const EventView = () => {
 
       console.log(data);
       if (response.ok) {
-        setEvents(data);
+        //setEvents(data);
+        dispatch1({ type: "GET_EVENTS", payload1: data });
       }
     };
 
     fetchEvents();
-  }, [setEvents]);
+  }, [dispatch1]);
   console.log(events);
   return (
     <>
