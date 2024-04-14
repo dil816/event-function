@@ -5,6 +5,15 @@ import useEventcontext from "../hooks/useEventcontext";
 const EventView = () => {
   //const [events, setEvents] = useState(null);
   const { events, dispatch1 } = useEventcontext();
+  const [query, setQuery] = useState("");
+  const keys = [
+    "description",
+    "eventTitle",
+    "eventType",
+    "location",
+    "startDate",
+    "startTime",
+  ];
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -22,11 +31,29 @@ const EventView = () => {
     fetchEvents();
   }, [dispatch1]);
   console.log(events);
+
+  const search = (data) => {
+    return data.filter((item) =>
+      keys.some((key) => item[key].toLowerCase().includes(query))
+    );
+  };
+
   return (
     <>
+      <div className="pt-2 relative mx-auto text-gray-600 ml-4">
+        <input
+          className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
+          type="search"
+          name="search"
+          placeholder="Search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
         {events &&
-          events.map((evnt) => <EventDetails key={evnt._id} evnt={evnt} />)}
+          search(events).map((evnt) => <EventDetails key={evnt._id} evnt={evnt} />)}
       </div>
     </>
   );
