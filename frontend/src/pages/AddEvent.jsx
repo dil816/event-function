@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import useEventcontext from "../hooks/useEventcontext";
+import { enqueueSnackbar } from "notistack";
 
 export const AddEvent = () => {
-  const {events, dispatch1 } = useEventcontext();
+  const { events, dispatch1 } = useEventcontext();
 
   const [eventTitle, setEventTitle] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -53,12 +54,14 @@ export const AddEvent = () => {
         dispatch1({ type: "CREATE_EVENTS", payload1: res.data });
 
         console.log("new event added");
+        enqueueSnackbar("New event added", { variant: "success" });
         navigate("/events");
       })
       .catch((res) => {
         console.log(res);
         setError(res.response.data.error);
         setEmptyFields(res.response.data.emptyFields);
+        enqueueSnackbar("Error", { variant: "error" });
       });
   };
   console.log(error);

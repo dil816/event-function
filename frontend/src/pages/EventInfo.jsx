@@ -69,7 +69,13 @@ const EventInfo = () => {
         <div className="flex flex-wrap [@media_screen_and(max-width:700px)]:flex-col">
           {ajenda != null && ajenda.length < 1 ? (
             <div className="mx-auto h-screen flex items-center justify-center px-8">
-              <div className="flex-[65%]  p-[30px]">
+              <div
+                className={
+                  contributors.length != 0
+                    ? `grid grid-cols-1 gap-1 mt-96`
+                    : `flex-[65%]  p-[30px]`
+                }
+              >
                 <h1 className="mb-4 text-2xl font-semi bold leading-none tracking-tight text-gray-800">
                   Event Details
                 </h1>

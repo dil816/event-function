@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { enqueueSnackbar } from "notistack";
 
 const EditEvent = () => {
   const [eventTitle, setEventTitle] = useState("");
@@ -78,12 +79,14 @@ const EditEvent = () => {
         setEmptyFields([]);
 
         console.log("event updated");
+        enqueueSnackbar("event updated", { variant: "success" });
         navigate("/events");
       })
       .catch((res) => {
         console.log(res);
         setError(res.response.data.error);
         setEmptyFields(res.response.data.emptyFields);
+        enqueueSnackbar("Error", { variant: "error" });
       });
     /*
     const response = await fetch(`http://localhost:4000/api/events/${id}`, {

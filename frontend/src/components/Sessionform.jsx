@@ -3,6 +3,7 @@ import useAjendacontext from "../hooks/useAjendacontext";
 import { useParams } from "react-router-dom";
 import useEventcontext from "../hooks/useEventcontext";
 import axios from "axios";
+import { enqueueSnackbar } from "notistack";
 
 const Sessionform = () => {
   const { eventId } = useParams();
@@ -112,6 +113,7 @@ const Sessionform = () => {
       setEmptyFields(data.emptyFields);
 
       console.log(data.error);
+      enqueueSnackbar("Error", { variant: "error" });
     }
 
     if (response.ok) {
@@ -127,6 +129,7 @@ const Sessionform = () => {
       dispatch({ type: "CREATE_AJENDA", payload: data });
 
       console.log("new ajenda added");
+      enqueueSnackbar("added", { variant: "success" });
     }
   };
 
@@ -156,11 +159,13 @@ const Sessionform = () => {
         dispatch1({ type: "CREATE_CONTRIBUTERS", payload: res.data });
 
         console.log("new contributer added");
+        enqueueSnackbar("added", { variant: "success" });
       })
       .catch((res) => {
         console.log(res);
         setConError(res.response.data.error);
         setConEmptyFields(res.response.data.emptyFields);
+        enqueueSnackbar("Error", { variant: "error" });
       });
   };
   console.log(conError);
