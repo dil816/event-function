@@ -5,7 +5,7 @@ const EventDetails = ({ evnt }) => {
   return (
     <>
       <Link to={`/eventsview/${evnt._id}`}>
-        <div className="ml-5 mr-5 mt-8 max-w-sm rounded overflow-hidden shadow-lg">
+        <div className="ml-5 mr-5 mt-8 max-w-sm rounded overflow-hidden shadow-lg bg-white">
           <img
             className="w-auto h-auto"
             src={`./public/images/${evnt.photo}`}

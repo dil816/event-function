@@ -24,7 +24,7 @@ const EventCalendar = ({ events }) => {
         events={eventArray}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 400, marginTop: "100px" }}
+        style={{ height: 400, marginTop: "100px",backgroundColor: "white" }}
       />
     </>
   );
