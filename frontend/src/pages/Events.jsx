@@ -102,6 +102,9 @@ const Events = () => {
                       Delete
                     </th>
                     <th scope="col" className="py-3 px-6">
+                      Report
+                    </th>
+                    <th scope="col" className="py-3 px-6">
                       Sessions
                     </th>
                   </tr>

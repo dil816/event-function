@@ -113,7 +113,7 @@ const EventInfo = () => {
                         {`📍 ${events.location}`}
                       </span>
                       <div className="flex flex-row items-center mt-4 text-gray-700">
-                        <div className="w-1/2">Mercedes-Benz Superdome</div>
+                        <div className="w-1/2">Mega - Events</div>
                         <div className="w-1/2 flex justify-end">
                           <img
                             src="https://collegefootballplayoff.com/images/section_logo.png"
@@ -181,7 +181,7 @@ const EventInfo = () => {
                       {`📍 ${events.location}`}
                     </span>
                     <div className="flex flex-row items-center mt-4 text-gray-700">
-                      <div className="w-1/2">Mercedes-Benz Superdome</div>
+                      <div className="w-1/2">Mega - Events</div>
                       <div className="w-1/2 flex justify-end">
                         <img
                           src="https://collegefootballplayoff.com/images/section_logo.png"

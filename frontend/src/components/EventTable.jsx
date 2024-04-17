@@ -1,6 +1,9 @@
 import propTypes from "prop-types";
 import { Link } from "react-router-dom";
 import useEventcontext from "../hooks/useEventcontext";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import EventPdf from "./EventPdf";
+
 const EventTable = ({ addEvent }) => {
   const { dispatch1 } = useEventcontext();
 
@@ -44,6 +47,20 @@ const EventTable = ({ addEvent }) => {
         <button className="btn btn-outline btn-error" onClick={Deletehandler}>
           Delete
         </button>
+      </td>
+      <td className="py-4 px-6">
+        <PDFDownloadLink
+          document={<EventPdf event={addEvent} />}
+          fileName={`${addEvent.eventTitle}`}
+        >
+          {({ loading }) =>
+            loading ? (
+              <button className="btn btn-outline btn-error">loading..</button>
+            ) : (
+              <button className="btn btn-outline btn-error">Download</button>
+            )
+          }
+        </PDFDownloadLink>
       </td>
       <td className="py-4 px-6">
         <Link to={`/addajenda/${addEvent._id}`}>
