@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import Sessionform from "../components/Sessionform";
-import AjendaDetail from "../components/AjendaDetail";
+import Sessionform from "../components/events/Sessionform";
+import AjendaDetail from "../components/events/AjendaDetail";
 import useAjendacontext from "../hooks/useAjendacontext";
 import SideNavbar from "../components/SideNavbar";
-import ProfileCard from "../components/ProfileCard";
+import ProfileCard from "../components/events/ProfileCard";
 import { useParams } from "react-router-dom";
 import useEventcontext from "../hooks/useEventcontext";
 

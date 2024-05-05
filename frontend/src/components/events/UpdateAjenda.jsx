@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import useAjendacontext from "../hooks/useAjendacontext";
+import useAjendacontext from "../../hooks/useAjendacontext";
 
 const UpdateAjenda = () => {
   const { id } = useParams();
@@ -30,7 +30,7 @@ const UpdateAjenda = () => {
       //}
     };
     fetchdata();
-  }, [ajenda,id]);
+  }, [ajenda, id]);
 
   const handleUpdateAjenda = async (e) => {
     e.preventDefault();

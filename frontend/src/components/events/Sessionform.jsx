@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import useAjendacontext from "../hooks/useAjendacontext";
+import useAjendacontext from "../../hooks/useAjendacontext";
 import { useParams } from "react-router-dom";
-import useEventcontext from "../hooks/useEventcontext";
+import useEventcontext from "../../hooks/useEventcontext";
 import axios from "axios";
 import { enqueueSnackbar } from "notistack";
 

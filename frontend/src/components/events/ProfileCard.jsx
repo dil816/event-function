@@ -1,4 +1,4 @@
-import useEventcontext from "../hooks/useEventcontext";
+import useEventcontext from "../../hooks/useEventcontext";
 
 const ProfileCard = ({ contributor }) => {
   const { dispatch1 } = useEventcontext();

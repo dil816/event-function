@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import EventTable from "../components/EventTable";
+import EventTable from "../components/events/EventTable";
 import SideNavbar from "../components/SideNavbar";
 import { Link } from "react-router-dom";
 import useEventcontext from "../hooks/useEventcontext";

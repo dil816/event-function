@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import EventDetails from "../components/EventDetails";
+import EventDetails from "../components/events/EventDetails";
 import useEventcontext from "../hooks/useEventcontext";
-import EventCalendar from "../components/EventCalendar";
+import EventCalendar from "../components/events/EventCalendar";
 
 const EventView = () => {
   //const [events, setEvents] = useState(null);

@@ -1,6 +1,6 @@
 import propTypes from "prop-types";
 import { Link } from "react-router-dom";
-import useEventcontext from "../hooks/useEventcontext";
+import useEventcontext from "../../hooks/useEventcontext";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import EventPdf from "./EventPdf";
 

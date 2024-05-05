@@ -1,5 +1,5 @@
 import propTypes from "prop-types";
-import useAjendacontext from "../hooks/useAjendacontext";
+import useAjendacontext from "../../hooks/useAjendacontext";
 import { format } from "date-fns";
 
 const AjendaDetail = ({ ajend }) => {
